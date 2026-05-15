@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Wishlist Pro</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="header-title-group">
+        <span class="header-icon">✦</span>
+        <h1 class="header-title">My Wishlist <span>Pro</span></h1>
+      </div>
+      <div class="header-right">
+        <div class="item-counter" id="itemCounter">0 items</div>
+        <div class="search-wrap">
+          <span class="search-icon">⌕</span>
+          <input type="text" id="searchInput" class="search-input" placeholder="Search wishlist…" />
+        </div>
+        <div class="sort-wrap">
+          <select id="sortSelect" class="sort-select">
+            <option value="newest">Newest</option>
+            <option value="price-asc">Price ↑</option>
+            <option value="price-desc">Price ↓</option>
+            <option value="status">Status</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="main">
+    <!-- Empty State -->
+    <div class="empty-state" id="emptyState">
+      <div class="empty-icon">🛍️</div>
+      <h2>Your wishlist is empty</h2>
+      <p>Tap the <strong>+</strong> button to add your first item</p>
+    </div>
+
+    <!-- Cards Grid -->
+    <div class="cards-grid" id="cardsGrid"></div>
+  </main>
+
+  <!-- ===== FAB ADD BUTTON ===== -->
+  <button class="fab" id="fabBtn" title="Add new item">
+    <span class="fab-icon">+</span>
+  </button>
+
+  <!-- ===== MODAL ===== -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" id="modal">
+      <div class="modal-header">
+        <h2 class="modal-title" id="modalTitle">Add Item</h2>
+        <button class="modal-close" id="modalClose">✕</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="editId" />
+
+        <div class="form-group">
+          <label class="form-label">Product Name <span class="required">*</span></label>
+          <input type="text" id="fieldName" class="form-input" placeholder="e.g. Sony WH-1000XM5" />
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Price</label>
+            <input type="text" id="fieldPrice" class="form-input" placeholder="e.g. ৳ 12,500" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Phone / Model</label>
+            <input type="text" id="fieldModel" class="form-input" placeholder="e.g. iPhone 15 Pro" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Shop / Importer</label>
+          <input type="text" id="fieldShop" class="form-input" placeholder="e.g. Daraz, Pickaboo…" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Description</label>
+          <textarea id="fieldDesc" class="form-input form-textarea" placeholder="Notes, why you want it, specs…"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Product Image <span class="form-optional">(optional)</span></label>
+          <div class="img-upload-area" id="imgUploadArea">
+            <div class="img-upload-placeholder" id="imgPlaceholder">
+              <span class="img-upload-icon">📷</span>
+              <span class="img-upload-hint">Tap to choose a photo</span>
+            </div>
+            <img id="imgPreview" class="img-preview" src="" alt="Preview" style="display:none;" />
+            <button type="button" class="img-remove-btn" id="imgRemoveBtn" style="display:none;">✕ Remove</button>
+          </div>
+          <input type="file" id="fieldImage" accept="image/*" style="display:none;" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Status</label>
+          <div class="status-options">
+            <label class="status-option">
+              <input type="radio" name="status" value="available" />
+              <span class="status-pill available">🟢 Available</span>
+            </label>
+            <label class="status-option">
+              <input type="radio" name="status" value="thinking" />
+              <span class="status-pill thinking">🟡 Thinking</span>
+            </label>
+            <label class="status-option">
+              <input type="radio" name="status" value="noturgent" />
+              <span class="status-pill noturgent">🔴 Not Urgent</span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" id="cancelBtn">Cancel</button>
+        <button class="btn btn-primary" id="saveBtn">Save Item</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== DELETE CONFIRM ===== -->
+  <div class="modal-overlay" id="deleteOverlay">
+    <div class="modal modal-sm" id="deleteModal">
+      <div class="modal-header">
+        <h2 class="modal-title">Delete Item?</h2>
+      </div>
+      <div class="modal-body">
+        <p style="color:var(--text-muted);font-size:0.95rem;">This will permanently remove the item from your wishlist.</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" id="deleteCancelBtn">Cancel</button>
+        <button class="btn btn-danger" id="deleteConfirmBtn">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== TOAST ===== -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
